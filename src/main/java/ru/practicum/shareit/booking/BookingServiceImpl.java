@@ -147,22 +147,22 @@ public class BookingServiceImpl implements BookingService {
 
     private void validate(Long userId, BookingRequestDto bookingRequestDto) {
         if (bookingRequestDto.getEnd() == null) {
-            throw new ValidationException("End date is null!");
+            throw new RuntimeException("End date is null!");
         }
         if (bookingRequestDto.getStart() == null) {
-            throw new ValidationException("Start date is null!");
+            throw new RuntimeException("Start date is null!");
         }
         if (bookingRequestDto.getEnd().isBefore(LocalDateTime.now())) {
-            throw new ValidationException("End date before now!");
+            throw new RuntimeException("End date before now!");
         }
         if (bookingRequestDto.getStart().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Start date before now!");
         }
         if (bookingRequestDto.getEnd().isBefore(bookingRequestDto.getStart())) {
-            throw new ValidationException("End date before Start date!");
+            throw new RuntimeException("End date before Start date!");
         }
         if (bookingRequestDto.getEnd().equals(bookingRequestDto.getStart())) {
-            throw new ValidationException("End date equals Start date!");
+            throw new RuntimeException("End date equals Start date!");
         }
         Item item = itemRepository.findById(bookingRequestDto.getItemId()).orElseThrow(
                 () -> new NotFoundException("Item id = " + bookingRequestDto.getItemId() + " not found!"));
@@ -170,14 +170,14 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException("Item is already booked!");
         }
         if (Boolean.FALSE.equals(item.getAvailable())) {
-            throw new ValidationException("Available is not true!");
+            throw new RuntimeException("Available is not true!");
         }
         if (bookingRepository.findAllByItemId(item.getId()).stream()
                 .anyMatch(booking -> (booking.getStart().isAfter(bookingRequestDto.getStart())
                         && booking.getStart().isBefore(bookingRequestDto.getEnd()))
                         || (booking.getEnd().isAfter(bookingRequestDto.getStart())
                         && booking.getEnd().isBefore(bookingRequestDto.getEnd())))) {
-            throw new ValidationException("Crossing dates!");
+            throw new RuntimeException("Crossing dates!");
         }
     }
 }
