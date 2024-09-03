@@ -2,10 +2,11 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.exception.DuplicatedDataException;
 import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.user.dao.UserMapper;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.model.User;
 
 import java.util.Collection;
 
@@ -21,35 +22,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(UserDto userDto) {
-        validation(userDto);
-        return UserMapper.toUserDto(userRepository.create(UserMapper.toUser(userDto)));
+        return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(userDto)));
     }
 
     @Override
     public UserDto update(Long userId, UserDto userDto) {
-        if (!userRepository.isUserExist(userId)) {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
             throw new NotFoundException("User (id = " + userId + ") not found!");
+        });
+        if (userDto.getEmail() != null
+                && !userDto.getEmail().isBlank()) {
+            user.setEmail(userDto.getEmail());
         }
-        userDto.setId(userId);
-        return UserMapper.toUserDto(userRepository.update(UserMapper.toUser(userDto)));
+        if (userDto.getName() != null
+                && !userDto.getName().isBlank()) {
+            user.setName(userDto.getName());
+        }
+        return UserMapper.toUserDto(userRepository.save(user));
     }
 
     @Override
     public UserDto getUserDtoById(Long userId) {
-        return UserMapper.toUserDto(userRepository.findUserById(userId));
+        return UserMapper.toUserDto(userRepository.findById(userId).orElseThrow(() -> {
+            throw new NotFoundException("User id = " + userId + " not found!");
+        }));
     }
 
     @Override
     public void delete(Long userId) {
-        if (!userRepository.isUserExist(userId)) {
-            throw new NotFoundException("User (id = " + userId + ") not found!");
-        }
-        userRepository.delete(userId);
-    }
-
-    private void validation(UserDto userDto) {
-        if (userRepository.isUserEmailExist(userDto.getEmail())) {
-            throw new DuplicatedDataException("E-Mail " + userDto.getEmail() + " is exist!");
-        }
+        userRepository.deleteById(userId);
     }
 }
