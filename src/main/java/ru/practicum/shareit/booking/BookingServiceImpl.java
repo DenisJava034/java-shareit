@@ -153,10 +153,10 @@ public class BookingServiceImpl implements BookingService {
             throw new ValidationException("Start date is null!");
         }
         if (bookingRequestDto.getEnd().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("End date before now!");
+            throw new ValidationException("End date before now!");
         }
         if (bookingRequestDto.getStart().isBefore(LocalDateTime.now())) {
-            throw new NotFoundException("Start date before now!");
+            throw new RuntimeException("Start date before now!");
         }
         if (bookingRequestDto.getEnd().isBefore(bookingRequestDto.getStart())) {
             throw new ValidationException("End date before Start date!");
