@@ -49,10 +49,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDto setApproved(Long userId, Long bookingId, Boolean approved) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> {
-            throw new NotFoundException("Booking id = " + bookingId + " not found!");
+            throw new NotFoundException("User does not exist");
         });
         if (!userRepository.existsById(userId)) {
-            throw new NotFoundException("User id = " + userId + " not found!");
+            throw new ValidationException("User id = " + userId + " not found!");
         }
         if (!booking.getItem().getOwner().getId().equals(userId)) {
             throw new NotFoundException("Only owner can set approved!");
