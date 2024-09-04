@@ -12,10 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.model.Comment;
 import ru.practicum.shareit.request.model.ItemRequest;
@@ -26,9 +23,10 @@ import java.util.List;
 @Entity
 @Table(name = "items")
 @Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -125,7 +125,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> findItemsByText(String text) {
-        if (text.isBlank() || text.isEmpty()) {
+        if (text.isBlank()) {
             return List.of();
         }
         return ItemMapper.toItemsDtoCollection(itemRepository.findByNameOrDescriptionContaining(text));
