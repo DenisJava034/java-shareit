@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.dao;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.booking.dto.BookingDateInfoDto;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -8,15 +9,15 @@ import ru.practicum.shareit.item.model.Item;
 
 import java.util.Collection;
 
-
+@UtilityClass
 public class ItemMapper {
-    public static Collection<ItemDto> toItemsDtoCollection(Collection<Item> items) {
+    public Collection<ItemDto> toItemsDtoCollection(Collection<Item> items) {
         return items.stream()
                 .map(ItemMapper::toItemDto)
                 .toList();
     }
 
-    public static ItemDto toItemDto(Item item) {
+    public ItemDto toItemDto(Item item) {
         if (item == null) return null;
         return new ItemDto(
                 item.getId(),

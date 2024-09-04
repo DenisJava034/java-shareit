@@ -1,13 +1,15 @@
 package ru.practicum.shareit.booking.dao;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.booking.dto.BookingDateInfoDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.item.dao.ItemMapper;
 import ru.practicum.shareit.user.dao.UserMapper;
 
+@UtilityClass
 public class BookingMapper {
-    public static BookingDto toBookingDto(Booking booking) {
+    public BookingDto toBookingDto(Booking booking) {
         if (booking == null) return null;
         return BookingDto.builder()
                 .id(booking.getId())
@@ -19,7 +21,7 @@ public class BookingMapper {
                 .build();
     }
 
-    public static BookingDateInfoDto toBookingDateInfoDto(Booking booking) {
+    public BookingDateInfoDto toBookingDateInfoDto(Booking booking) {
         if (booking == null) return null;
         return BookingDateInfoDto.builder()
                 .id(booking.getId())
