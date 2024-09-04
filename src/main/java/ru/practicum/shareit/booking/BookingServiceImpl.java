@@ -52,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Booking id = " + bookingId + " not found!");
         });
         if (!userRepository.existsById(userId)) {
-            throw new ValidationException("User id = " + userId + " not found!");
+            throw new NotFoundException("User id = " + userId + " not found!");
         }
         if (!booking.getItem().getOwner().getId().equals(userId)) {
             throw new NotFoundException("Only owner can set approved!");
