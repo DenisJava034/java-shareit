@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingRequestDto;
+import ru.practicum.shareit.booking.model.BookingState;
 import ru.practicum.shareit.header.Headers;
 
 import java.util.Collection;
@@ -35,7 +36,7 @@ public class BookingController {
     @GetMapping
     public Collection<BookingDto> findAll(
             @RequestHeader(Headers.USER_HEADER) Long userId,
-            @RequestParam(defaultValue = "ALL") String state) {
+            @RequestParam(defaultValue = "ALL") BookingState state) {
         log.info(String.valueOf("Получение списка бронирований пользователя: {} "), userId);
         return bookingService.findAllByBookerAndStatus(userId, state);
     }
@@ -43,7 +44,7 @@ public class BookingController {
     @GetMapping("/owner")
     public Collection<BookingDto> findAllByOwnerAndStatus(
             @RequestHeader(Headers.USER_HEADER) Long userId,
-            @RequestParam(defaultValue = "ALL") String state) {
+            @RequestParam(defaultValue = "ALL") BookingState state) {
         log.info(String.valueOf("Получение списка бронирований для всех вещей пользователя: {} "), userId);
         return bookingService.findAllByOwnerAndStatus(userId, state);
     }
