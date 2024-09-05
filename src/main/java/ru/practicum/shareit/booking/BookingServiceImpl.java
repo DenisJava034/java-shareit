@@ -156,7 +156,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Item is already booked!");
         }
         if (Boolean.FALSE.equals(item.getAvailable())) {
-            throw new ValidationException("Available is not true!");
+            throw new RuntimeException("Available is not true!");
         }
 
         if (!bookingRepository.findAllByItemIdAndStartAfterAndStartBefore(
