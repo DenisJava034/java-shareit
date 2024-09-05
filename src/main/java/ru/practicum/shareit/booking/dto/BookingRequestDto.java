@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 public class BookingRequestDto {
     @NotNull
     private Long itemId;
-    @FutureOrPresent
-    @NotNull
+    @FutureOrPresent(message = "Start date before now!")
+    @NotNull(message = "Start date is null!")
     private LocalDateTime start;
-    @Future
-    @NotNull
+    @Future(message = "End date before Start date!")
+    @NotNull(message = "End date is null!")
     private LocalDateTime end;
 }
