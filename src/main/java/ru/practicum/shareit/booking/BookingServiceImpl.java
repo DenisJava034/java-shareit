@@ -160,12 +160,12 @@ public class BookingServiceImpl implements BookingService {
         }
 
         if (!bookingRepository.findAllByItemIdAndStartAfterAndStartBefore(
-                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()){
+                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()) {
             throw new ValidationException("Crossing dates!");
         }
 
         if (!bookingRepository.findAllByItemIdAndEndAfterAndEndBefore(
-                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()){
+                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()) {
             throw new ValidationException("Crossing dates!");
         }
     }
