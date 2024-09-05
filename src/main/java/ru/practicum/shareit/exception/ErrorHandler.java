@@ -45,7 +45,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse handleUnsupportedOperationException(final UnsupportedOperationException e) {
         return new ErrorResponse(
                 "Object is unavailable!",
