@@ -27,15 +27,6 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleRuntimeException(final RuntimeException e) {
-        return new ErrorResponse(
-                "Internal Error!",
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleDuplicatedData(final DuplicatedDataException e) {
         return new ErrorResponse(
@@ -45,7 +36,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleUnsupportedOperationException(final UnsupportedOperationException e) {
         return new ErrorResponse(
                 "Object is unavailable!",
