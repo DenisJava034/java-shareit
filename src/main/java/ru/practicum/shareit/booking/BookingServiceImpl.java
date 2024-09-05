@@ -158,11 +158,14 @@ public class BookingServiceImpl implements BookingService {
         if (Boolean.FALSE.equals(item.getAvailable())) {
             throw new RuntimeException("Available is not true!");
         }
-        if (bookingRepository.findAllByItemId(item.getId()).stream()
-                .anyMatch(booking -> (booking.getStart().isAfter(bookingRequestDto.getStart())
-                        && booking.getStart().isBefore(bookingRequestDto.getEnd()))
-                        || (booking.getEnd().isAfter(bookingRequestDto.getStart())
-                        && booking.getEnd().isBefore(bookingRequestDto.getEnd())))) {
+
+        if (!bookingRepository.findAllByItemIdAndStartAfterAndStartBefore(
+                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()){
+            throw new ValidationException("Crossing dates!");
+        }
+
+        if (!bookingRepository.findAllByItemIdAndEndAfterAndEndBefore(
+                bookingRequestDto.getItemId(), bookingRequestDto.getStart(), bookingRequestDto.getEnd()).isEmpty()){
             throw new ValidationException("Crossing dates!");
         }
     }
