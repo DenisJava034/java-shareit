@@ -1,12 +1,14 @@
 package ru.practicum.shareit.comment.dao;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.comment.model.Comment;
 
 import java.util.Collection;
 
+@UtilityClass
 public class CommentMapper {
-    public static CommentDto toCommentDto(Comment comment) {
+    public CommentDto toCommentDto(Comment comment) {
         if (comment == null) return null;
         return CommentDto.builder()
                 .id(comment.getId())
@@ -16,7 +18,7 @@ public class CommentMapper {
                 .build();
     }
 
-    public static Collection<CommentDto> toCommentsDtoCollection(Collection<Comment> comments) {
+    public Collection<CommentDto> toCommentsDtoCollection(Collection<Comment> comments) {
         return comments.stream()
                 .map(CommentMapper::toCommentDto)
                 .toList();
