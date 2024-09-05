@@ -10,6 +10,7 @@ import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingState;
 import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.exception.UnsupportedOperationException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
@@ -156,7 +157,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Item is already booked!");
         }
         if (Boolean.FALSE.equals(item.getAvailable())) {
-            throw new RuntimeException("Available is not true!");
+            throw new UnsupportedOperationException("Available is not true!");
         }
 
         if (!bookingRepository.findAllByItemIdAndStartAfterAndStartBefore(

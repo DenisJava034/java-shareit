@@ -43,4 +43,12 @@ public class ErrorHandler {
                 e.getMessage()
         );
     }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUnsupportedOperationException(final UnsupportedOperationException e) {
+        return new ErrorResponse(
+                "Object is unavailable!",
+                e.getMessage()
+        );
+    }
 }
