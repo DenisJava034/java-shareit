@@ -147,12 +147,6 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private void validate(Long userId, BookingRequestDto bookingRequestDto) {
-        if (bookingRequestDto.getEnd() == null) {
-            throw new RuntimeException("End date is null!");
-        }
-        if (bookingRequestDto.getStart() == null) {
-            throw new RuntimeException("Start date is null!");
-        }
         if (bookingRequestDto.getEnd().equals(bookingRequestDto.getStart())) {
             throw new RuntimeException("End date equals Start date!");
         }
