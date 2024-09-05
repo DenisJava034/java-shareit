@@ -148,22 +148,22 @@ public class BookingServiceImpl implements BookingService {
 
     private void validate(Long userId, BookingRequestDto bookingRequestDto) {
         if (bookingRequestDto.getEnd().equals(bookingRequestDto.getStart())) {
-            throw new RuntimeException("End date equals Start date!");
+            throw new ValidationException("End date equals Start date!");
         }
         Item item = itemRepository.findById(bookingRequestDto.getItemId()).orElseThrow(
                 () -> new NotFoundException("Item id = " + bookingRequestDto.getItemId() + " not found!"));
         if (Objects.equals(item.getOwner().getId(), userId)) {
-            throw new RuntimeException("Item is already booked!");
+            throw new NotFoundException("Item is already booked!");
         }
         if (Boolean.FALSE.equals(item.getAvailable())) {
-            throw new RuntimeException("Available is not true!");
+            throw new ValidationException("Available is not true!");
         }
         if (bookingRepository.findAllByItemId(item.getId()).stream()
                 .anyMatch(booking -> (booking.getStart().isAfter(bookingRequestDto.getStart())
                         && booking.getStart().isBefore(bookingRequestDto.getEnd()))
                         || (booking.getEnd().isAfter(bookingRequestDto.getStart())
                         && booking.getEnd().isBefore(bookingRequestDto.getEnd())))) {
-            throw new RuntimeException("Crossing dates!");
+            throw new ValidationException("Crossing dates!");
         }
     }
 }
