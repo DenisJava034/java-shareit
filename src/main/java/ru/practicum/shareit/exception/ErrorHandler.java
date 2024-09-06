@@ -27,19 +27,19 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleRuntimeException(final RuntimeException e) {
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleDuplicatedData(final DuplicatedDataException e) {
         return new ErrorResponse(
-                "Internal Error!",
+                "Duplicated data error!",
                 e.getMessage()
         );
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleDuplicatedData(final DuplicatedDataException e) {
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleUnsupportedOperationException(final UnsupportedOperationException e) {
         return new ErrorResponse(
-                "Duplicated data error!",
+                "Object is unavailable!",
                 e.getMessage()
         );
     }
