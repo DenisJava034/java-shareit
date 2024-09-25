@@ -1,6 +1,9 @@
 package ru.practicum.shareit.item.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.model.Comment;
