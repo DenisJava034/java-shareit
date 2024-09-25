@@ -3,8 +3,8 @@ package ru.practicum.shareit.item.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.comment.model.Comment;
 import ru.practicum.shareit.request.model.ItemRequest;
@@ -15,7 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "items")
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
