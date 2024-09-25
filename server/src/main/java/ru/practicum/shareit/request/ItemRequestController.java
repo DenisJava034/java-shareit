@@ -30,7 +30,6 @@ public class ItemRequestController {
     public ItemRequestDto create(@RequestHeader("X-Sharer-User-Id") Long userId,
                                  @RequestBody ItemRequestRequestDto itemRequestRequestDto) {
         itemRequestRequestDto.setRequestorId(userId);
-        log.info(String.valueOf("Добавлена вещь: {}"), itemRequestRequestDto);
         return itemRequestService.create(itemRequestRequestDto);
     }
 
