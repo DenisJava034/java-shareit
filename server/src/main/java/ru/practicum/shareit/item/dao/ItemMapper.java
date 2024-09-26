@@ -13,7 +13,7 @@ import java.util.List;
 @UtilityClass
 public class ItemMapper {
     public Collection<ItemDto> toItemsDtoCollection(Collection<Item> items) {
-        if (items == null){
+        if (items == null) {
             return List.of();
         }
         return items.stream()
@@ -22,7 +22,7 @@ public class ItemMapper {
     }
 
     public ItemDto toItemDto(Item item) {
-        if (item == null){
+        if (item == null) {
             return null;
         }
         return new ItemDto(
