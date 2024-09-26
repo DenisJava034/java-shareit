@@ -48,8 +48,8 @@ public class ItemRequestController {
 
     @GetMapping("/all")
     public List<ItemRequestDto> findAllUsersItemRequest(
-            @RequestParam(defaultValue = "0", required = false) @Min(0) int from,
-            @RequestParam(defaultValue = "10", required = false) @Min(1) int size) {
+            @RequestParam(defaultValue = "0") @Min(0) int from,
+            @RequestParam(defaultValue = "10") @Min(1) int size) {
         Pageable pageable = PageRequest.of(from, size, Sort.by("created").descending());
         log.info(String.valueOf("Список запросов созданных другими пользователями"));
         return itemRequestService.findAllUsersItemRequest(pageable);

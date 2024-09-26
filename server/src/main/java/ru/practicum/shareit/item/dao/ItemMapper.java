@@ -13,14 +13,18 @@ import java.util.List;
 @UtilityClass
 public class ItemMapper {
     public Collection<ItemDto> toItemsDtoCollection(Collection<Item> items) {
-        if (items == null) return List.of();
+        if (items == null){
+            return List.of();
+        }
         return items.stream()
                 .map(ItemMapper::toItemDto)
                 .toList();
     }
 
     public ItemDto toItemDto(Item item) {
-        if (item == null) return null;
+        if (item == null){
+            return null;
+        }
         return new ItemDto(
                 item.getId(),
                 item.getName(),
@@ -34,7 +38,9 @@ public class ItemMapper {
                                             BookingDateInfoDto lastBooking,
                                             BookingDateInfoDto nextBooking,
                                             Collection<CommentDto> commentDtos) {
-        if (item == null) return null;
+        if (item == null) {
+            return null;
+        }
         return ItemInfoDto.builder()
                 .id(item.getId())
                 .name(item.getName())

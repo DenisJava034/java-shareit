@@ -41,8 +41,8 @@ public class ItemRequestController {
     @GetMapping("/all")
     public ResponseEntity<Object> findAllUsersItemRequest(
             @RequestHeader("X-Sharer-User-Id") Long userId,
-            @PositiveOrZero @RequestParam(defaultValue = "0", required = false) int from,
-            @Positive @RequestParam(defaultValue = "10", required = false) int size) {
+            @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+            @Positive @RequestParam(defaultValue = "10") int size) {
         return itemRequestClient.findAllUsersItemRequest(userId, from, size);
     }
 }
